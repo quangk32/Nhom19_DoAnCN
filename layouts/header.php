@@ -318,10 +318,14 @@ session_start();
 								<div class="name" style="cursor: pointer;"><b>TÀI KHOẢN</b></div>
 								<ul class="nav-item-sub" >
 									<li >
-										<a href="http://localhost:8080/new dacn/N19_SportStore/inforuser.php" class="btn btn-infor" >Thông tin tài khoản</a>
+										<a href="inforuser.php" class="btn btn-infor" >Thông tin tài khoản</a>
 									</li>
 									<li >
-										<a href="http://localhost:8080/new dacn/N19_SportStore/logout.php" class="btn btn-out" >Đăng xuất</a>
+										<a href="orderHistory.php" class="btn btn-infor" >Lịch sử đơn hàng</a>
+									</li>
+									
+									<li >
+										<a href="logout.php" class="btn btn-out" >Đăng xuất</a>
 									</li>
 								</ul>
 								<?php

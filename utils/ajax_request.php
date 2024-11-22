@@ -23,51 +23,65 @@ switch ($action) {
 
 function checkout()
 {
-	if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
-		return;
-	}
+    if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
+        return;
+    }
 
-	$fullname = Utility::getPost("fullname");
+    $db = new Database();
+
+    $fullname = Utility::getPost("fullname");
 	$email = Utility::getPost("email");
 	$phone_number = Utility::getPost("phone_number");
 	$address = Utility::getPost("address");
 	$note = Utility::getPost("note");
-	$_SESSION['email'] = $email;
-	$user = Utility::getUserToken();
-	$userId = 0;
-	if ($user != null) {
-		$userId = $user['id'];
+
+
+    $user = Utility::getUserToken();
+    $userId = $user['id'] ?? 0;
+
+    $orderDate = date('Y-m-d H:i:s');
+    $totalMoney = 0;
+
+    foreach ($_SESSION['cart'] as $item) {
+        $totalMoney += $item['discount'] * $item['num'];
+    }
+
+    // Thêm đơn hàng
+    $sql = "INSERT INTO orders (user_id, fullname, email, phone_number, address, note, order_date, status, total_money) 
+            VALUES ($userId, '$fullname', '$email', '$phone_number', '$address', '$note', '$orderDate', 0, $totalMoney)";
+    $db->execute($sql);
+	//kiem tra loi
+	$result = $db->execute($sql);
+	if (!$result) {
+		die('Lỗi khi thêm đơn hàng!');
 	}
+	
+    // Lấy id của đơn hàng vừa thêm
+    $sql = "SELECT id FROM orders WHERE order_date = '$orderDate' AND user_id = $userId";
+    $orderItem = $db->executeResult($sql, true);
 
-	$orderDate = date('Y-m-d H:i:s');
+    if (!$orderItem) {
+        die("Lỗi: Không thể truy xuất thông tin đơn hàng.");
+    }
 
-	$totalMoney = 0;
-	foreach ($_SESSION['cart'] as $item) {
-		$totalMoney += $item['discount'] * $item['num'];
-	}
+    $orderId = $orderItem['id'];
 
-	$db = new Database();
-	$sql = "INSERT into orders(user_id, fullname, email, phone_number, address, note, order_date, status, total_money) values ($userId, '$fullname', '$email', '$phone_number', '$address', '$note', '$orderDate', 0, '$totalMoney')";
-	$db->execute($sql);
+    // Thêm chi tiết đơn hàng
+    foreach ($_SESSION['cart'] as $item) {
+        $product_id = $item['id'];
+        $price = $item['discount'];
+        $num = $item['num'];
+        $totalMoney = $price * $num;
 
-	$sql = "SELECT * from Orders where order_date = '$orderDate'";
-	$orderItem = $db->executeResult($sql, true);
+        $sql = "INSERT INTO order_details (order_id, product_id, price, num, total_money) 
+                VALUES ($orderId, $product_id, $price, $num, $totalMoney)";
+        $db->execute($sql);
+    }
 
-	$orderId = $orderItem['id'];
-	$email = $orderId['email'];
-
-	foreach ($_SESSION['cart'] as $item) {
-		$product_id = $item['id'];
-		$price = $item['discount'];
-		$num = $item['num'];
-		$totalMoney = $price * $num;
-
-		$sql = "INSERT into order_details(order_id, product_id, price, num, total_money) values ($orderId, $product_id, $price, $num, $totalMoney)";
-		$db->execute($sql);
-	}
-
-	// unset($_SESSION['cart']);
+    // Làm trống giỏ hàng
+    unset($_SESSION['cart']);
 }
+
 function deleteCart(){
 	updateCart(); 
 }

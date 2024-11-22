@@ -57,5 +57,9 @@ public function getTotalPages($sqlCount, $itemsPerPage) {
   $totalItems = $this->executeSingleResult($sqlCount)['total'];
   return ceil($totalItems / $itemsPerPage);
 }
+public function getLastInsertedId() {
+  return $this->connection->insert_id;
+}
+
 }
 
