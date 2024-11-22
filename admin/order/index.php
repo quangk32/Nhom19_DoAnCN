@@ -3,87 +3,136 @@ $title = "Trang Quản lý đơn hàng";
 $baseUrl = '../';
 include_once '../layouts/header.php';
 $db = new Database();
-// pending, approved, cancel
-$sql = "SELECT * FROM orders ORDER BY status ASC, order_date DESC ";
+
+// Lấy danh sách đơn hàng và phân loại theo trạng thái
+$sql = "SELECT id, fullname, email, phone_number, address, order_date, status, total_money 
+        FROM orders 
+        ORDER BY status ASC, order_date DESC";
 $data = $db->executeResult($sql);
+
+// Phân loại đơn hàng theo trạng thái
+$orders = [
+    'pending' => [],
+    'approved' => [],
+    'canceled' => []
+];
+foreach ($data as $item) {
+    switch ($item['status']) {
+        case 0:
+            $orders['pending'][] = $item;
+            break;
+        case 1:
+            $orders['approved'][] = $item;
+            break;
+        case 2:
+            $orders['canceled'][] = $item;
+            break;
+    }
+}
 ?>
-<!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <h1 class="m-0 mb-3">Danh sách đơn hàng</h1>
-                    <table class="table table-hover mt-5 table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Họ và tên</th>
-                                <th scope="col">SĐT</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Địa chỉ</th>
-                                <th scope="col">Nội dung</th>
-                                <th scope="col">Ngày tạo</th>
-                                <th scope="col">Tổng tiền</th>
-                                <th scope="col">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $index = 0;
-                            foreach ($data as $item) : ?>
-                                <tr>
-                                    <th scope="row"><?= ++$index ?></th>
-                                    <td><?= $item['fullname'] ?></td>
-                                    <td><?= $item['phone_number'] ?></td>
-                                    <td><?= $item['email'] ?></td>
-                                    <td><?= $item['address'] ?></td>
-                                    <td><?= $item['note'] ?></td>
-                                    <td><?= $item['order_date'] ?></td>
-                                    <td><?= number_format($item['total_money']) . ' VNĐ' ?></td>
-                                    <td>
-                                        <?php if ($item['status'] == 0) : ?>
-                                            <button onclick="changeStatus(<?= $item['id'] ?>,1)" class="btn btn-success">Đồng ý</button>
-                                            <button onclick="changeStatus(<?= $item['id'] ?>,2)" class="btn btn-danger">Huỷ</button>
-                                        <?php elseif ($item['status'] == 1) : ?>
-                                            <label for="" class="badge badge-success">Đã đồng ý</label>
-                                        <?php else : ?>
-                                            <label for="" class="badge badge-danger">Huỷ bỏ</label>
-                                        <?php endif; ?>
-                                        <a href="./detail.php?id=<?=$item['id']?>" class="btn btn-primary">Xem</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
+            <h1 class="m-0 mb-3">Danh sách đơn hàng</h1>
 
-                        </tbody>
-                    </table>
-                </div>
+            <!-- Hiển thị từng nhóm đơn hàng -->
+            <h2 class="mt-4">Đơn hàng đang chờ xử lý</h2>
+            <?php renderOrderTable($orders['pending']); ?>
 
+            <h2 class="mt-4">Đơn hàng đã duyệt</h2>
+            <?php renderOrderTable($orders['approved']); ?>
 
-            </div>
+            <h2 class="mt-4">Đơn hàng đã hủy</h2>
+            <?php renderOrderTable($orders['canceled']); ?>
         </div>
     </div>
 </div>
-<aside class="control-sidebar control-sidebar-dark">
-</aside>
-</div>
 
+<!-- Script xử lý AJAX -->
 <script>
     function changeStatus(id, status) {
-        option = confirm('Bạn có muốn xử lý không?');
-        if (!option) {
-            return;
-        }
+        if (!confirm('Bạn có muốn cập nhật trạng thái đơn hàng này không?')) return;
+
         $.post('form_api.php', {
             'id': id,
             'status': status,
             'action': 'update_status'
         }, function(data) {
+            alert('Cập nhật trạng thái thành công!');
             location.reload();
-        })
+        }).fail(function() {
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        });
+    }
+
+    function deleteUser(id) {
+        if (!confirm('Bạn có chắc chắn muốn xoá đơn hàng này không?')) return;
+
+        $.post('form_api.php', {
+            'id': id,
+            'action': 'delete'
+        }, function(data) {
+            alert('Xóa đơn hàng thành công!');
+            location.reload();
+        }).fail(function() {
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        });
     }
 </script>
 <?php
 include_once '../layouts/footer.php';
+
+// Hàm render bảng đơn hàng
+function renderOrderTable($orders) {
+    if (count($orders) == 0) {
+        echo "<p>Không có đơn hàng trong danh mục này.</p>";
+        return;
+    }
+
+    echo '<table class="table table-hover mt-5 table-bordered">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Họ và tên</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày tạo</th>
+                    <th>Tổng tiền</th>
+                    <th>Hành động</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>';
+
+    $index = 0;
+    foreach ($orders as $item) {
+        echo '<tr>
+                <th>' . (++$index) . '</th>
+                <td>' . htmlspecialchars($item['fullname']) . '</td>
+                <td>' . htmlspecialchars($item['phone_number']) . '</td>
+                <td>' . htmlspecialchars($item['address']) . '</td>
+                <td>' . $item['order_date'] . '</td>
+                <td>' . number_format($item['total_money']) . ' VNĐ</td>
+                <td>
+                    <a href="./detail.php?id=' . $item['id'] . '" class="btn btn-info fa fa-eye"></a>
+                    <button onclick="deleteUser(' . $item['id'] . ')" class="btn btn-danger fa fa-trash-alt"></button>
+                </td>
+                <td>';
+        
+        if ($item['status'] == 0) {
+            echo '<button onclick="changeStatus(' . $item['id'] . ',1)" class="btn btn-success">Đồng ý</button>
+                  <button onclick="changeStatus(' . $item['id'] . ',2)" class="btn btn-danger">Huỷ</button>';
+        } elseif ($item['status'] == 1) {
+            echo '<span class="badge badge-success">Success</span>';
+        } else {
+            echo '<span class="badge badge-danger">Cancel</span>';
+        }
+        
+        echo    '</td>
+            </tr>';
+    }
+
+    echo '</tbody></table>';
+}
 ?>

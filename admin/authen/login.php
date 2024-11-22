@@ -7,7 +7,7 @@ include_once "./process_form_login.php";
 $user = Utility::getUserToken();
 
 if ($user != null) {
-    header("Location:  ./index.php");
+    header("Location:  ./login.php");
     die();
 }
 ?>
