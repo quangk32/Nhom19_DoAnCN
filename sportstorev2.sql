@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 31, 2023 lúc 01:36 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Nov 22, 2024 at 11:04 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `sportstore`
+-- Database: `sportstoree`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `brands`
+-- Table structure for table `brands`
 --
 
 CREATE TABLE `brands` (
@@ -34,7 +34,7 @@ CREATE TABLE `brands` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `brands`
+-- Dumping data for table `brands`
 --
 
 INSERT INTO `brands` (`id`, `name`, `mota`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `brands` (`id`, `name`, `mota`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `carts`
+-- Table structure for table `carts`
 --
 
 CREATE TABLE `carts` (
@@ -60,7 +60,7 @@ CREATE TABLE `carts` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -69,7 +69,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
@@ -84,7 +84,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -101,16 +101,16 @@ CREATE TABLE `feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `feedback`
+-- Dumping data for table `feedback`
 --
 
 INSERT INTO `feedback` (`id`, `fname`, `email`, `phone_number`, `address`, `subject_name`, `note`, `created_at`, `updated_at`, `status`) VALUES
-(4, 'lê văn minh', 'thptdaian.levanminhk1821@gmail.com', '0835231103', 'Ha Noi', 'hi', 'hi', '2023-12-05 06:36:53', '2023-12-05 06:36:53', 0);
+(8, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', 'Không đặt được hàng', 'Tôi gặp vấn đề về phương thức thanh toán', '2024-11-13 12:27:45', '2024-11-13 12:27:45', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `gallery`
+-- Table structure for table `gallery`
 --
 
 CREATE TABLE `gallery` (
@@ -122,7 +122,7 @@ CREATE TABLE `gallery` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -139,20 +139,19 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fullname`, `email`, `phone_number`, `address`, `note`, `order_date`, `status`, `total_money`) VALUES
-(22, 6, 'minh', 'minhminh1821k@gmail.com', '0835231103', 'nguyên xá', 'not thing', '2023-12-07 04:51:38', 0, 100000),
-(23, 0, 'lê văn minh', 'thptdaian.levanminhk1821@gmail.com', '0835231103', 'Ha Noi', '', '2023-12-17 10:03:22', 0, 12000000),
-(24, 9, 'lê văn minh', 'thptdaian.levanminhk1821@gmail.com', '0835231103', 'nguyên xá, minh khai', 'hi', '2023-12-17 15:29:27', 0, 12650000),
-(25, 6, 'minh', 'd1821@gmail.com', '0835231103', 'nguyên xá', 'đẹp', '2023-12-18 17:44:14', 0, 28000000),
-(26, 6, 'le minh', 'd1821@gmail.com', '08352311', 'Ha Noi', 'hi', '2023-12-18 18:00:05', 0, 100000);
+(43, 0, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', '', '2024-11-17 18:38:05', 1, 190000),
+(44, 0, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', '', '2024-11-17 18:39:22', 1, 2490000),
+(45, 0, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', '', '2024-11-17 18:40:34', 0, 1360000),
+(46, 0, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', '', '2024-11-17 18:40:52', 2, 650000);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_details`
+-- Table structure for table `order_details`
 --
 
 CREATE TABLE `order_details` (
@@ -165,30 +164,23 @@ CREATE TABLE `order_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `order_details`
+-- Dumping data for table `order_details`
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `num`, `total_money`) VALUES
-(1, 1, 1, 1, 2, 2),
-(2, 2, 1, 1, 1, 1),
-(3, 2, 5, 2000, 3, 6000),
-(4, 3, 35, 100000, 1, 100000),
-(5, 4, 35, 100000, 2, 200000),
-(6, 5, 22, 10000, 1, 10000),
-(7, 6, 16, 10000, 1, 10000),
-(8, 6, 7, 2, 1, 2),
-(9, 7, 35, 100000, 4, 400000),
-(10, 14, 24, 220000, 1, 220000),
-(11, 14, 28, 150000, 1, 150000),
-(12, 15, 25, 180000, 1, 180000),
-(13, 15, 8, 175000, 1, 175000),
-(14, 16, 12, 190000, 6, 1140000),
-(15, 17, 37, 100000, 1, 100000);
+(16, 43, 81, 190000, 1, 190000),
+(17, 44, 52, 200000, 2, 400000),
+(18, 44, 85, 190000, 1, 190000),
+(19, 44, 34, 1900000, 1, 1900000),
+(20, 45, 58, 270000, 1, 270000),
+(21, 45, 52, 200000, 1, 200000),
+(22, 45, 35, 890000, 1, 890000),
+(23, 46, 33, 650000, 1, 650000);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -208,7 +200,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `price`, `discount`, `image`, `brand`, `description`, `quantity`, `active`, `created_at`, `updated_at`, `deleted`) VALUES
@@ -299,7 +291,7 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `price`, `discount`, `image
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -308,7 +300,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
@@ -319,7 +311,7 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sizes`
+-- Table structure for table `sizes`
 --
 
 CREATE TABLE `sizes` (
@@ -329,7 +321,7 @@ CREATE TABLE `sizes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sizes`
+-- Dumping data for table `sizes`
 --
 
 INSERT INTO `sizes` (`id`, `size`, `soluong`) VALUES
@@ -342,7 +334,7 @@ INSERT INTO `sizes` (`id`, `size`, `soluong`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sliders`
+-- Table structure for table `sliders`
 --
 
 CREATE TABLE `sliders` (
@@ -354,7 +346,7 @@ CREATE TABLE `sliders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sliders`
+-- Dumping data for table `sliders`
 --
 
 INSERT INTO `sliders` (`id`, `image`, `title`, `content`, `active`) VALUES
@@ -367,7 +359,7 @@ INSERT INTO `sliders` (`id`, `image`, `title`, `content`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tokens`
+-- Table structure for table `tokens`
 --
 
 CREATE TABLE `tokens` (
@@ -377,7 +369,7 @@ CREATE TABLE `tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `tokens`
+-- Dumping data for table `tokens`
 --
 
 INSERT INTO `tokens` (`user_id`, `token`, `created_at`) VALUES
@@ -440,6 +432,15 @@ INSERT INTO `tokens` (`user_id`, `token`, `created_at`) VALUES
 (10, 'c56143fcd6ed4e5dca418b0a2df3424d', '2023-12-20 11:04:05'),
 (12, '181078a30af3f528869514b78f40bb2b', '2021-10-30 14:24:41'),
 (13, 'af08e39cb4fb5f11417b6bc89eef6114', '2021-10-30 14:25:14'),
+(14, '1a132baaba888eec623ead92e2a8da96', '2024-11-11 14:39:00'),
+(14, '2df00d724375ec76509dc83cdec8b8fe', '2024-11-11 14:13:38'),
+(14, '3376a6f958ff33b3483eaadabe5efea0', '2024-11-11 14:55:04'),
+(14, '37a292559e9f023cb9561bcaada18f4e', '2024-11-12 14:54:31'),
+(14, '4a01654c9d73d7609a0938beb3411b49', '2024-11-11 14:39:31'),
+(14, '4eefa684dbe7bef5911f137006054959', '2024-11-13 08:41:37'),
+(14, '5a2572d8e29975665f52ae89ee0923e0', '2024-11-11 14:58:56'),
+(14, '8679f5c9c22c42e91cc8f65d2692d0b1', '2024-11-11 14:11:17'),
+(14, 'bd96e6fe3b2924dc60b2e93a041cdc7d', '2024-11-16 20:28:11'),
 (15, '463d15ae36b5deda07d258a98582611b', '2021-11-10 15:17:36'),
 (15, '48e7e95f60f703f0e91e30c001b42f42', '2021-11-05 01:19:47'),
 (16, '5d3c283c7c7fa562ed0b2407f2260e88', '2021-11-05 17:09:42'),
@@ -448,7 +449,7 @@ INSERT INTO `tokens` (`user_id`, `token`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -466,20 +467,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `phone_number`, `address`, `password`, `role_id`, `created_at`, `updated_at`, `deleted`, `avatar`) VALUES
-(6, 'Lê Văn Minh', 'minhminh1821k@gmail.com', '0835231103', 'Ha Noi', 'b7b37da7a90410444dafcc76035d0e67', 1, '2023-12-04 15:16:54', '2023-12-04 15:16:54', 0, NULL),
-(9, 'Lê Văn Minh', 'thptdaian.levanminhk1821@gmail.com', '0835231103', 'Ha Noi', 'c155c26602296d0c19d6d6b4ab6bc542', 1, '2023-12-17 10:47:16', '2023-12-17 10:47:16', 0, NULL),
-(10, 'Lê Minh', '1234@gmail.com', '12345678', 'Nam Định', 'b7b37da7a90410444dafcc76035d0e67', 1, '2023-12-20 11:03:50', '2023-12-20 11:03:50', 0, NULL),
-(12, 'Hồ Thích An', 'hoThichAn@gmail.com', '12345678', 'Ha Noi', 'b7b37da7a90410444dafcc76035d0e67', 1, '2023-12-30 15:14:18', '2023-12-30 15:14:18', 0, NULL),
-(13, 'Hồ Thích An', 'hiAn@gmail.com', '12345678', 'Ha Noi', 'b7b37da7a90410444dafcc76035d0e67', 1, '2023-12-30 15:17:30', '2023-12-30 15:17:30', 0, NULL);
+(14, 'Vũ Duy Quang', 'vuduyquang362003@gmail.com', '0815461162', 'Vĩnh Tường- Vĩnh Phúc', 'e6a109a81bb3c1c4a7f63fbfe4f1c48f', 1, '2024-11-11 14:11:12', '2024-11-12 14:54:25', 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users_khach`
+-- Table structure for table `users_khach`
 --
 
 CREATE TABLE `users_khach` (
@@ -493,56 +490,55 @@ CREATE TABLE `users_khach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users_khach`
+-- Dumping data for table `users_khach`
 --
 
 INSERT INTO `users_khach` (`id`, `name`, `email`, `phone`, `address`, `password`, `role`) VALUES
-(1, 'minh', 'd@gmail.com', '12345678', 'Nam Định', '12345678', 3),
-(2, 'lê văn minh', 'thptdaian.levanminhk1821@gmail.com', '0835231103', 'Nam Định', '12345678', 3);
+(3, 'Vũ Duy Quang', 'quangtest@gmail.com', '0815461162', 'Vĩnh Phúc', '123456', 3);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `brands`
+-- Indexes for table `brands`
 --
 ALTER TABLE `brands`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `carts`
+-- Indexes for table `carts`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `feedback`
+-- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `gallery`
+-- Indexes for table `gallery`
 --
 ALTER TABLE `gallery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_order_user` (`user_id`);
 
 --
--- Chỉ mục cho bảng `order_details`
+-- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`),
@@ -550,138 +546,138 @@ ALTER TABLE `order_details`
   ADD KEY `fk_orderdetail_product` (`product_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_product_category` (`category_id`);
 
 --
--- Chỉ mục cho bảng `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `sizes`
+-- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `sliders`
+-- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `tokens`
+-- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`user_id`,`token`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_user_role` (`role_id`);
 
 --
--- Chỉ mục cho bảng `users_khach`
+-- Indexes for table `users_khach`
 --
 ALTER TABLE `users_khach`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD KEY `fk_usk_roles` (`role`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `brands`
+-- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `carts`
+-- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT cho bảng `feedback`
+-- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `gallery`
+-- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT cho bảng `order_details`
+-- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
--- AUTO_INCREMENT cho bảng `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `sizes`
+-- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `sliders`
+-- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT cho bảng `users_khach`
+-- AUTO_INCREMENT for table `users_khach`
 --
 ALTER TABLE `users_khach`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `users_khach`
+-- Constraints for table `users_khach`
 --
 ALTER TABLE `users_khach`
   ADD CONSTRAINT `fk_usk_roles` FOREIGN KEY (`role`) REFERENCES `roles` (`id`);
