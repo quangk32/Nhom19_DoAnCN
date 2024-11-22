@@ -7,7 +7,7 @@ include_once "sol_register.php";
 <div class="container" style="margin: 20px auto;">
 	<form method="post" id="signup-form" onsubmit="return true">
 		<div class="" >
-			<div   align="center">
+			<div align="center">
 				<div class="form-group">
 					<legend style="font-size:40px; font-weight:bold; color:black;">Đăng ký</legend>
 				</div>

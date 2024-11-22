@@ -7,9 +7,7 @@ if(isset($_SESSION['id'])){
 	$email = $_SESSION['email'];
 	$phone = $_SESSION['phone'];
 	$address = $_SESSION['address'];
-
 }
-
 ?>
 <div class="container row" style=" margin-top: 20px; margin-bottom: 20px; margin-left: auto; margin-right: auto;">
 <!-- display:flex; justify-content: space-between; -->
@@ -97,7 +95,6 @@ if(isset($_SESSION['id'])){
 		}, function() {
 			window.open('complete.php', '_self');
 		})
-
 		return false;
 	}
 </script>

@@ -1,6 +1,7 @@
 <?php
 $baseUrl = './mail';
 require_once('layouts/header.php');
+require_once('db/database.php');
 require_once("./mail/sendmail.php");
 require_once('TCPDF/tcpdf.php'); 
 
@@ -24,7 +25,6 @@ foreach ($_SESSION['cart'] as $item) {
         <td>" . $item['num'] . "</td>
     </tr>";
 }
-
 $noidung .= "</table>";
 $maildathang = $_SESSION['email'];
 $mail = new Mailer();
@@ -32,7 +32,7 @@ $mail->datHangMail($tieude, $noidung, $maildathang);
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Đồ Thể Thao Minh An');
+$pdf->SetAuthor('Cửa hàng đồ thể thao TinySport');
 $pdf->SetTitle('Hóa Đơn Bán Lẻ');
 $pdf->SetSubject('Hóa Đơn Bán Lẻ');
 
@@ -58,6 +58,21 @@ foreach ($_SESSION['cart'] as $item) {
     $stt++; 
 
 }
+//Chèn dữ liệu vào bảng orders
+$order_sql = "INSERT INTO orders (fullname, email, phone_number, address, order_date, total_money, status) 
+              VALUES ('" . htmlspecialchars($_SESSION['name']) . "', '" . $_SESSION['email'] . "', '" . $_SESSION['phone'] . "', '" . $_SESSION['address'] . "', NOW(), $tongTien, 0)";
+$db->execute($order_sql);
+
+// Lấy ID của đơn hàng vừa thêm vào bảng orders
+$order_id = $db->getLastInsertedId();
+
+// Thêm dữ liệu vào bảng order_detail
+foreach ($_SESSION['cart'] as $item) {
+    $order_detail_sql = "INSERT INTO order_details (order_id, product_id, price, num, total_money) 
+                         VALUES ($order_id, " . $item['id'] . ", " . $item['discount'] . ", " . $item['num'] . ", " . ($item['discount'] * $item['num']) . ")";
+    $db->execute($order_detail_sql);
+}
+
 $htmlHeader = <<<EOD
 <style>
 h2, h3, h4, p {
@@ -90,11 +105,11 @@ h2, h3, h4, p {
             
         </td>
         <td style="width: 50%; text-align: right;">
-            <h2 class="header-title">CÔNG TY TNHH ĐỒ THỂ THAO MINH AN</h2>
-            <p class="header-info">Địa chỉ: 56 Tô Ký, Khương Thượng, Đống Đa, Hà Nội</p>
+            <h2 class="header-title">Cửa hàng đồ thể thao TinySport</h2>
+            <p class="header-info">Địa chỉ: Hà Nội, Việt Nam</p>
             <p class="header-info">Điện thoại: 123.456.7891</p>
-            <p class="header-info">Email: Nhom7@gmail.com</p>
-            <p class="header-info">Website: http://phpdothethao.vn</p>
+            <p class="header-info">Email: Nhom19DoAnChuyenNganh@gmail.com</p>
+            <p class="header-info">Website: http://localhost:8080/new%20dacn/N19_SportStore</p>
         </td>
     </tr>
     <tr>
